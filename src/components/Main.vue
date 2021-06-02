@@ -1,13 +1,13 @@
 <template>
   <div>
     <div>
-      <div class="grid-table">
+      <div class="grid-row">
         <span class="grid-header">Email</span>
         <span class="grid-header">Number of Tickets</span>
       </div>
       <div v-for="(guest, index) in guests" :key="index">
         <form v-if="guestToEdit.email === guest.email" @submit.prevent="updateGuest">
-          <div class="grid-table">
+          <div class="grid-row">
             <div>
               <input v-model="updatedEmail" type="email">
             </div>
@@ -20,7 +20,7 @@
             </div>
           </div>
         </form>
-        <div v-else class="grid-table">
+        <div v-else class="grid-row">
           <div>
             {{ guest.email }}
           </div>
@@ -38,8 +38,8 @@
       Total Number of Guests: {{ totalGuests }}
     </div>
     <div class="new-guest-form">
-      <div class="form-header">Add a new guest</div>
-      <div class="form-body">
+      <div class="guest-form-header">Add a new guest</div>
+      <div>
         <form @submit.prevent="addGuest">
           <label for="newGuestEmail">Email:</label>
           <input v-model="newGuestEmail" type="email" id="newGuestEmail">
@@ -128,35 +128,31 @@
 </script>
 
 <style scoped>
-  .guest-count {
-    margin-top: 15px;
+  .grid-header {
     font-weight: bold;
   }
 
-  .grid-table {
+  .grid-row {
     display: grid;
     grid-template-columns: repeat(auto-fill, 33%);
     padding: 10px;
     border-bottom: 1px solid #000;
   }
 
-  .grid-table:nth-of-type(even) {
-    background-color: #f2f2f2;
-  }
-
-  .grid-header {
-    font-weight: bold;
-  }
-
   .actions button {
     margin-right: 10px;
+  }
+
+  .guest-count {
+    margin-top: 15px;
+    font-weight: bold;
   }
 
   .new-guest-form {
     margin-top: 72px;
   }
 
-  .form-header {
+  .guest-form-header {
     background-color: #333;
     color: #fff;
     padding: 10px;
