@@ -1,29 +1,31 @@
-<style scoped>
-  div.app {
-    max-width:1000px;
-    margin:auto;
-    font-family: sans-serif;
-  }
-</style>
-
 <template>
-  <div class="app">
-    <NavBar />
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+    KPA EHS Recruiting Project
+     <v-spacer></v-spacer>
+   <v-btn flat>
+   Reservation Table
+   </v-btn>
+    </v-app-bar>
 
-    <br />
-
-    <Main />
-  </div>
+    
+  </v-app>
 </template>
 
 <script>
-import NavBar from './components/NavBar';
-import Main from './components/Main';
 
 export default {
+  name: 'App',
+
   components: {
-    Main,
-    NavBar,
   },
+
+  data: () => ({
+    //
+  }),
 };
 </script>
