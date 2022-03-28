@@ -5,13 +5,15 @@
       color="primary"
       dark
     >
-    KPA EHS Recruiting Project
+    <v-btn text href="/">KPA EHS Recruiting Project</v-btn>
      <v-spacer></v-spacer>
-   <v-btn flat>
+   <v-btn href="/view-reservations">
    Reservation Table
    </v-btn>
     </v-app-bar>
-
+ <v-main>
+  <router-view/>
+  </v-main>
     
   </v-app>
 </template>

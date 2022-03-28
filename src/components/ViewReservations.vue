@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h4>...todo...</h4>
-    <p>Check out the readme file for instructions.</p>
+   
   </div>
 </template>
 
@@ -13,5 +12,8 @@
     data: () => {
       return { };
     },
+    mounted(){
+      console.debug('test')
+    }
   }
 </script>
