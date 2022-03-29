@@ -23,12 +23,42 @@
           <td>{{ guest.email }}</td>
           <td>{{ guest.tickets }}</td>
           <td>
-            <v-btn small @click="edit()">Edit</v-btn>
+            <v-btn small @click="edit(guest,i)">Edit</v-btn>
           <v-btn small class="ml-3" @click="remove(guest)" color="error">Delete</v-btn></td>
         </tr>
       </tbody>
     </template>
   </v-simple-table>
+
+  <v-dialog v-model="editable">
+    <!-- I understand this one could have been done better and we could have reused it. But to save me some time  -->
+  <v-card class="pa-10 reservation-entry">
+    <v-card-title>
+      Reservation Entry
+    </v-card-title>
+      <v-text-field
+      dense
+      hide-details
+      solo
+      v-model="email"
+      placeholder="Enter your email address"
+      >
+
+      </v-text-field>
+      <v-text-field
+      class="mt-5"
+      dense
+      hide-details
+      solo
+      v-model="tickets"
+      placeholder="Enter # of tickets"
+      >
+
+      </v-text-field>
+
+      <v-btn :loading="loading" @click="updateGuest()" color="success" class="mt-5">Update</v-btn>
+    </v-card>
+  </v-dialog>
   </div>
 </template>
 
@@ -39,7 +69,12 @@
   export default {
     data: () => {
       return { 
-        guestList:[]
+        guestList:[],
+        email:'',
+        tickets:'',
+        index:'', // index to edit
+        editable:false,
+        loading:false,
       };
     },
     async mounted(){
@@ -61,10 +96,18 @@ await this.getGuestDetails()
     await repo.save(this.guestList);
 
     },
-    edit(){
-      this.$router.push({
-        path:'/'
-      })
+    async updateGuest(index){
+  console.debug(this.guestList.splice(index,1,{
+        email:this.email,
+        tickets:this.tickets
+      }))
+    },
+    edit(guest,index){
+      this.email = guest.email
+      this.tickets = guest.tickets
+      this.editable=!this.editable
+      this.index=index 
+    
     }
   }
   }
