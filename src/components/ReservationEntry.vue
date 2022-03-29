@@ -25,7 +25,7 @@
 
       </v-text-field>
 
-      <v-btn @click="saveGuest()" color="success" class="mt-5">Submit</v-btn>
+      <v-btn :loading="loading" @click="saveGuest()" color="success" class="mt-5">Submit</v-btn>
     </v-card>
     </v-container>
   
@@ -41,7 +41,8 @@
       return { 
         guestList:[],
         email:'',
-        tickets:''
+        tickets:'',
+        loading:false
       };
     },
     async mounted(){
@@ -50,6 +51,7 @@
     },
     methods:{
       async saveGuest(){
+        this.loading=true
       const repo = new GuestRepository()
       // Fetch guests
       //  this.guestList.splice(0, 1);
@@ -57,9 +59,9 @@
         email:this.email,
         tickets:this.tickets
       })
-      console.debug(this.guestList)
 
       await repo.save(this.guestList);
+      this.loading=false
     }
   }
   }
