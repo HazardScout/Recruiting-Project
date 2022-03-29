@@ -56,7 +56,7 @@
 
       </v-text-field>
 
-      <v-btn :loading="loading" @click="updateGuest()" color="success" class="mt-5">Update</v-btn>
+      <v-btn :loading="loading" @click="updateGuest(index)" color="success" class="mt-5">Update</v-btn>
     </v-card>
   </v-dialog>
   </div>
@@ -97,16 +97,21 @@ await this.getGuestDetails()
 
     },
     async updateGuest(index){
-  console.debug(this.guestList.splice(index,1,{
-        email:this.email,
-        tickets:this.tickets
-      }))
+      this.loading=true
+      const repo = new GuestRepository()
+      this.guestList[index].email=this.email
+      this.guestList[index].tickets=this.tickets
+    await repo.save(this.guestList);
+      this.loading=false
+
+
     },
     edit(guest,index){
       this.email = guest.email
       this.tickets = guest.tickets
       this.editable=!this.editable
       this.index=index 
+      console.debug()
     
     }
   }
