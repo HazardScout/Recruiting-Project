@@ -9,6 +9,7 @@
       dense
       hide-details
       solo
+      v-model="email"
       placeholder="Enter your email address"
       >
 
@@ -18,12 +19,13 @@
       dense
       hide-details
       solo
+      v-model="tickets"
       placeholder="Enter # of tickets"
       >
 
       </v-text-field>
 
-      <v-btn  color="success" class="mt-5">Submit</v-btn>
+      <v-btn @click="saveGuest()" color="success" class="mt-5">Submit</v-btn>
     </v-card>
     </v-container>
   
@@ -37,17 +39,27 @@
   export default {
     data: () => {
       return { 
-        guestList:[]
+        guestList:[],
+        email:'',
+        tickets:''
       };
     },
     async mounted(){
-await this.getGuestDetails()
+      const repo = new GuestRepository()
+      this.guestList = await repo.load()
     },
     methods:{
-      async getGuestDetails(){
+      async saveGuest(){
       const repo = new GuestRepository()
       // Fetch guests
-      this.guestList = await repo.load()
+      //  this.guestList.splice(0, 1);
+      this.guestList.push({
+        email:this.email,
+        tickets:this.tickets
+      })
+      console.debug(this.guestList)
+
+      await repo.save(this.guestList);
     }
   }
   }
