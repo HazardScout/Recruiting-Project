@@ -11,7 +11,7 @@
 
 <template>
   <div class="nav-bar">
-    iScout Recruiting Project
+    nyan cat project
   </div>
 </template>
 
